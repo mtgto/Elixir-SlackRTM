@@ -1,0 +1,2 @@
+defmodule SlackRtm do
+end

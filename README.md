@@ -1,7 +1,7 @@
 Elixir-SlackRtm
 ========
 
-An Slack RealTimeMessage (RTM) API client written in Elixir.
+Slack Real Time Messaging (RTM) API client written in Elixir.
 
 # Usage
 ```

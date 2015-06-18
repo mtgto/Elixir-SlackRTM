@@ -39,11 +39,14 @@ defmodule SlackRtm do
 
   @doc """
   Send a message to Slack, raising if an error occurs.
+
+  It can not send a message longer than 4,000 chars by Slack RTM API limit.
   """
-  @spec send!(SlackRtm.State.t, String.t, String.t) :: :ok | no_return
-  def send!(_state = %SlackRtm.State{socket: socket}, message, channel) do
-    json = Poison.Encoder.encode(%{type: "message", text: message, channel: channel}, []) |> IO.iodata_to_binary
-    socket |> Socket.Web.send! {:text, json}
+  @spec send!(SlackRtm.State.t, String.t, String.t) :: {:ok, SlackRtm.State.t} | no_return
+  def send!(state = %SlackRtm.State{socket: socket, message_id: message_id}, message, channel) do
+    json = Poison.Encoder.encode(%{id: message_id, type: "message", text: message, channel: channel}, []) |> IO.iodata_to_binary
+    :ok = socket |> Socket.Web.send! {:text, json}
+    {:ok, %SlackRtm.State{state | message_id: message_id + 1}}
   end
 
   @doc """
@@ -68,11 +71,5 @@ defmodule SlackRtm do
       {type, _, _} ->
         Logger.warn "Receive unknown type message: #{inspect type}"
     end
-  end
-
-  def loop(state) do
-    received = recv!(state)
-    Logger.info "received: #{inspect received}"
-    loop(state)
   end
 end

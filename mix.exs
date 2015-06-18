@@ -23,7 +23,7 @@ defmodule SlackRtm.Mixfile do
   end
 
   defp deps do
-    [{:socket, "~> 0.2.8"},
+    [{:socket, github: "meh/elixir-socket"},
      {:httpoison, "~> 0.7"},
      {:poison, "~> 1.4.0"}]
   end

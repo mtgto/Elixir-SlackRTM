@@ -2,5 +2,5 @@
   "httpoison": {:hex, :httpoison, "0.7.0"},
   "idna": {:hex, :idna, "1.0.2"},
   "poison": {:hex, :poison, "1.4.0"},
-  "socket": {:hex, :socket, "0.2.8"},
+  "socket": {:git, "git://github.com/meh/elixir-socket.git", "b943c8f382aad03faea6bdadbd8d07239bc02886", []},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"}}

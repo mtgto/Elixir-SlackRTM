@@ -14,10 +14,10 @@ defmodule SlackRtm do
       {:ok, _response = %HTTPoison.Response{status_code: status_code, body: %{"ok" => false, "error" => error}}} ->
         Logger.debug "error: #{error}, code: #{status_code}"
         raise RuntimeError, message: error
-      {:ok, _response = %HTTPoison.Response{status_code: status_code, body: %{"ok" => true, "url" => url, "self" => _self, "team" => _team, "channels" => _channels, "groups" => _groups, "ims" => _ims, "bots" => _bots}}} ->
+      {:ok, _response = %HTTPoison.Response{status_code: status_code, body: %{"ok" => true, "url" => url, "self" => self, "team" => _team, "channels" => _channels, "groups" => _groups, "ims" => _ims, "bots" => _bots}}} ->
         Logger.debug "url: #{url}, code: #{status_code}, channels: #{inspect _channels}"
         socket = Socket.connect! url
-        %SlackRtm.State{socket: socket}
+        %SlackRtm.State{socket: socket, self: self}
       {:ok, _response = %HTTPoison.Response{status_code: status_code, body: body}} ->
         Logger.debug "response: #{inspect body}, code: #{status_code}"
         raise RuntimeError, message: "unknown"

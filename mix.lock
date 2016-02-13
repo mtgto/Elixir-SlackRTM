@@ -4,5 +4,5 @@
   "idna": {:hex, :idna, "1.0.3"},
   "mimerl": {:hex, :mimerl, "1.0.2"},
   "poison": {:hex, :poison, "2.0.1"},
-  "socket": {:hex, :socket, "0.3.1"},
+  "socket": {:git, "https://github.com/meh/elixir-socket.git", "fd7d726bc91164837b7ed06421b21322da07c8e8", []},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"}}

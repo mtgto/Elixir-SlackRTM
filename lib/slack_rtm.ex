@@ -14,8 +14,8 @@ defmodule SlackRtm do
       {:ok, _response = %HTTPoison.Response{status_code: status_code, body: %{"ok" => false, "error" => error}}} ->
         Logger.debug "error: #{error}, code: #{status_code}"
         raise RuntimeError, message: error
-      {:ok, _response = %HTTPoison.Response{status_code: status_code, body: %{"ok" => true, "url" => url, "self" => self, "team" => _team, "channels" => _channels, "groups" => _groups, "ims" => _ims, "bots" => _bots}}} ->
-        Logger.debug "url: #{url}, code: #{status_code}, channels: #{inspect _channels}"
+      {:ok, _response = %HTTPoison.Response{status_code: status_code, body: %{"ok" => true, "url" => url, "self" => self, "team" => _team, "channels" => channels, "groups" => _groups, "ims" => _ims, "bots" => _bots}}} ->
+        Logger.debug "url: #{url}, code: #{status_code}, channels: #{inspect channels}"
         socket = Socket.connect! url
         %SlackRtm.State{socket: socket, self: self}
       {:ok, _response = %HTTPoison.Response{status_code: status_code, body: body}} ->
@@ -45,7 +45,7 @@ defmodule SlackRtm do
   @spec send!(SlackRtm.State.t, String.t, String.t) :: {:ok, SlackRtm.State.t} | no_return
   def send!(state = %SlackRtm.State{socket: socket, message_id: message_id}, message, channel) do
     json = Poison.Encoder.encode(%{id: message_id, type: "message", text: message, channel: channel}, []) |> IO.iodata_to_binary
-    :ok = socket |> Socket.Web.send! {:text, json}
+    :ok = socket |> Socket.Web.send!({:text, json})
     {:ok, %SlackRtm.State{state | message_id: message_id + 1}}
   end
 

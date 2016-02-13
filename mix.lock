@@ -1,6 +1,8 @@
-%{"hackney": {:hex, :hackney, "1.1.0"},
-  "httpoison": {:hex, :httpoison, "0.7.0"},
-  "idna": {:hex, :idna, "1.0.2"},
-  "poison": {:hex, :poison, "1.4.0"},
-  "socket": {:git, "git://github.com/meh/elixir-socket.git", "b943c8f382aad03faea6bdadbd8d07239bc02886", []},
+%{"certifi": {:hex, :certifi, "0.3.0"},
+  "hackney": {:hex, :hackney, "1.4.8"},
+  "httpoison": {:hex, :httpoison, "0.8.1"},
+  "idna": {:hex, :idna, "1.0.3"},
+  "mimerl": {:hex, :mimerl, "1.0.2"},
+  "poison": {:hex, :poison, "2.0.1"},
+  "socket": {:hex, :socket, "0.3.1"},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"}}

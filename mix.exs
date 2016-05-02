@@ -24,8 +24,8 @@ defmodule SlackRtm.Mixfile do
 
   defp deps do
     [{:socket, github: "meh/elixir-socket"},
-     {:httpoison, "~> 0.8.1"},
-     {:poison, "~> 2.0.1"}]
+     {:httpoison, "~> 0.8.3"},
+     {:poison, "~> 2.1.0"}]
   end
 
   defp package do

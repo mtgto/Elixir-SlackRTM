@@ -21,6 +21,10 @@ defmodule SlackRtm do
       {:ok, _response = %HTTPoison.Response{status_code: status_code, body: body}} ->
         Logger.debug "response: #{inspect body}, code: #{status_code}"
         raise RuntimeError, message: "unknown"
+      {:error, error} ->
+        message = "Failed to connect to Slack. reason: #{error}"
+        Logger.info message
+        raise RuntimeError, message: message
     end
   end
 

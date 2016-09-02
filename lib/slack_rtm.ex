@@ -8,8 +8,8 @@ defmodule SlackRtm do
 
   `:token` is the Slack API token.
   """
-  @spec open!(String.t) :: SlackRtm.State.t | no_return
-  def open!(token) do
+  @spec open(String.t) :: SlackRtm.State.t | no_return
+  def open(token) do
     case SlackRtm.API.get(token) do
       {:ok, _response = %HTTPoison.Response{status_code: status_code, body: %{"ok" => false, "error" => error}}} ->
         Logger.debug "error: #{error}, code: #{status_code}"
@@ -46,8 +46,8 @@ defmodule SlackRtm do
 
   It can not send a message longer than 4,000 chars by Slack RTM API limit.
   """
-  @spec send!(SlackRtm.State.t, String.t, String.t) :: {:ok, SlackRtm.State.t} | no_return
-  def send!(state = %SlackRtm.State{socket: socket, message_id: message_id}, message, channel) do
+  @spec send(SlackRtm.State.t, String.t, String.t) :: {:ok, SlackRtm.State.t} | no_return
+  def send(state = %SlackRtm.State{socket: socket, message_id: message_id}, message, channel) do
     json = Poison.Encoder.encode(%{id: message_id, type: "message", text: message, channel: channel}, []) |> IO.iodata_to_binary
     :ok = socket |> Socket.Web.send!({:text, json})
     {:ok, %SlackRtm.State{state | message_id: message_id + 1}}
@@ -58,8 +58,8 @@ defmodule SlackRtm do
 
   Raise an RuntimeError, when the connection is closed.
   """
-  @spec recv!(SlackRtm.State.t) :: Map.t | no_return
-  def recv!(state = %SlackRtm.State{socket: socket}) do
+  @spec recv(SlackRtm.State.t) :: Map.t | no_return
+  def recv(state = %SlackRtm.State{socket: socket}) do
     case socket |> Socket.Web.recv! do
       {:text, text} ->
         Logger.debug "Receive text: #{inspect text}"
@@ -69,7 +69,7 @@ defmodule SlackRtm do
       {:ping, ping} ->
         Logger.debug "Receive ping, send the response automatically."
         socket |> Socket.Web.pong!(ping)
-        recv!(state)
+        recv(state)
       {:pong, pong} ->
         Logger.debug "Receive pong: #{inspect pong}"
       {type, _, _} ->

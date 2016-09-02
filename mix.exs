@@ -4,7 +4,7 @@ defmodule SlackRtm.Mixfile do
   def project do
     [app: :slack_rtm,
      version: "0.0.1",
-     elixir: "~> 1.2",
+     elixir: "~> 1.3",
      description: description,
      package: package,
      build_embedded: Mix.env == :prod,
@@ -23,9 +23,9 @@ defmodule SlackRtm.Mixfile do
   end
 
   defp deps do
-    [{:socket, github: "meh/elixir-socket"},
-     {:httpoison, "~> 0.8.3"},
-     {:poison, "~> 2.1.0"}]
+    [{:socket, "~> 0.3.5"},
+     {:httpoison, "~> 0.9.1"},
+     {:poison, "~> 2.2.0"}]
   end
 
   defp package do

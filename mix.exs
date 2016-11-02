@@ -23,9 +23,12 @@ defmodule SlackRtm.Mixfile do
   end
 
   defp deps do
-    [{:socket, "~> 0.3.5"},
-     {:httpoison, "~> 0.9.1"},
-     {:poison, "~> 2.2.0"}]
+    [
+      {:socket, "~> 0.3.5"},
+      {:httpoison, "~> 0.9.2"},
+      {:poison, "~> 3.0"},
+      {:ex_doc, "~> 0.14.3", only: :docs},
+    ]
   end
 
   defp package do
